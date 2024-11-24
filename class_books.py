@@ -5,11 +5,11 @@ class Book:
     book_id = 1
 
     def __init__(self, title:str, author:str, year:int, id=None, status="в наличии"):
-        self.__id = self.book_id if id is None else id
-        self.__title = title
-        self.__author = author
-        self.__year = year
-        self.__status = status
+        self.id = Book.book_id if id is None else id
+        self.title = title
+        self.author = author
+        self.year = year
+        self.status = status
         Book.book_id += 1
 
     def __str__(self):
@@ -17,4 +17,4 @@ class Book:
         Строчное представление класса
         """
 
-        return "id:{} {}-{}, {} г. ({})".format(self.__id, self.__title, self.__author, self.__year, self.__status)
+        return "id:{} {}-{}, {} г. ({})".format(self.id, self.title, self.author, self.year, self.status)
