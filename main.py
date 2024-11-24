@@ -6,7 +6,7 @@ def main():
     while True:
         input_user = input("\nВведите команду: ").lower().strip()
         if input_user == "list":
-            print(views_books())
+            views_books()
         elif input_user == "add":
             print(adding_book())
         elif input_user == "delete":

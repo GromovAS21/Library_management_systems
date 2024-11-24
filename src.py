@@ -68,10 +68,10 @@ def views_books():
     """
     books = read_file()
     if not books:
-        return "Список книг пуст."
+        print("Список книг пуст.")
     else:
         for num, value in enumerate(books, 1):
-            return num, f"id:{value["id"]} {value["title"]}-{value["author"]}, {value["year"]} г. ({value["status"]})"
+            print (f"{num}) id:{value["id"]} {value["title"]}-{value["author"]}, {value["year"]} г. ({value["status"]})")
 
 def change_status():
     """
