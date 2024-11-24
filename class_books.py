@@ -14,7 +14,13 @@ class Book:
     def __repr__(self):
         return f"{self.__class__.__name__}({self.id}, {self.title}, {self.author}, {self.year}, {self.status})"
 
+    def __str__(self):
+        return f"id:{self.id} {self.title}-{self.author}, {self.year} г. ({self.status})"
+
     @classmethod
     def set_book_id(cls):
+        """
+        Увеличение ID для создания других объектов
+        """
         cls.BOOK_ID += 1
         return cls.BOOK_ID

@@ -55,7 +55,7 @@ def search_book():
     search_user = input("Поиск: ").strip()
     for book in books:
         if search_user in book["author"] or search_user in book["title"] or search_user in str(book["year"]):
-            return f"id:{book["id"]} {book["title"]}-{book["author"]}, {book["year"]} г. ({book["status"]})"
+            return Book(**book)
     return "Книга c указанным ID не найдена!"
 
 def views_books():
@@ -67,7 +67,7 @@ def views_books():
         print("Список книг пуст.")
     else:
         for num, value in enumerate(books, 1):
-            print (f"{num}) id:{value["id"]} {value["title"]}-{value["author"]}, {value["year"]} г. ({value["status"]})")
+            print (f"{num}) {Book(**value)}")
 
 def change_status():
     """
