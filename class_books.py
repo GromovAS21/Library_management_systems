@@ -12,9 +12,15 @@ class Book:
         self.status = status
 
     def __repr__(self):
+        """
+        Отладочный вывод экземпляра
+        """
         return f"{self.__class__.__name__}({self.id}, {self.title}, {self.author}, {self.year}, {self.status})"
 
     def __str__(self):
+        """
+        Клиентский вывод экземпляра
+        """
         return f"id:{self.id} {self.title}-{self.author}, {self.year} г. ({self.status})"
 
     @classmethod
