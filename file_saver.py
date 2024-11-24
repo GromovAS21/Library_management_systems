@@ -2,7 +2,7 @@ import json
 
 from class_books import Book
 
-def read_file():
+def read_file() -> list:
     """
     Прочтение файла json
     """
@@ -13,7 +13,7 @@ def read_file():
         except json.decoder.JSONDecodeError:
             return []
 
-def write_file(book:Book):
+def write_file(book:Book) -> None:
     """
     Запись в json файл
     """
