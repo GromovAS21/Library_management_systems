@@ -1,5 +1,3 @@
-import json
-
 from class_books import Book
 from file_saver import write_file, read_file
 from services import out_red_text, out_green_text
@@ -31,7 +29,6 @@ def adding_book():
 def delete_book():
     while True:
         books = read_file()
-
         if not books:
             return "Пока нет добавленных книг!\n"
 
@@ -41,8 +38,7 @@ def delete_book():
             for book in books:
                 if int(book["id"]) == int(book_id):
                     books.remove(book)
-                    with open("db_book.json", "w", encoding="utf-8") as file:
-                        json.dump(books, file, ensure_ascii=False)
+                    write_file(books)
                     return out_green_text(f"Книга с id:{book_id} удалена.")
             else:
                 return "Книга c указанным ID не найдена!"
@@ -89,8 +85,7 @@ def change_status():
                     book["status"] = "выдан"
                 else:
                     book["status"] = "в наличии"
-                with open("db_book.json", "w", encoding="utf-8") as file:
-                    json.dump(books, file, ensure_ascii=False, indent=5)
+                write_file(books)
                 return out_green_text("Статус книги с id {} изменен!".format(book["id"]))
         return "Книга c указанным ID не найдена!"
     else:
