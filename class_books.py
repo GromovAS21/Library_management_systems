@@ -3,7 +3,7 @@ class Book:
     Класс книги
     """
     book_id = 1
-    def __init__(self, title:str, author:str, year:int, status="в_наличии"):
+    def __init__(self, title:str, author:str, year:int, status="в наличии"):
         self.id = self.book_id
         self.title = title
         self.author = author

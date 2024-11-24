@@ -25,10 +25,13 @@ def adding_book():
 def delete_book():
     while True:
         books = read_file()
+
         if not books:
             print("Пока нет добавленных книг!\n")
             break
+
         book_id = input("Введите id книги которую хотите удалить: ")
+
         if book_id.isdigit():
             for book in books:
                 if int(book["id"]) == int(book_id):
@@ -44,9 +47,22 @@ def delete_book():
             print(out_red_text("Введен некорректный id!"))
 
 
+def search_book():
+    search_user = input("Поиск: ").strip()
+    books = read_file()
+    indicator = 1
+    for book in books:
+        if search_user in book["author"] or search_user in book["title"] or search_user in str(book["year"]):
+            print(f"{book["title"]} - {book["author"]}, {int(book["year"])} г. {book["status"]}")
+            indicator = 0
+    if indicator:
+        print("Книга не найдена!")
+
+
+
+
 
 
 
 if __name__ == "__main__":
-    adding_book()
-    delete_book()
+    search_book()
