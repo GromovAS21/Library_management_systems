@@ -12,9 +12,5 @@ class Book:
         self.status = status
         Book.book_id += 1
 
-    def __str__(self):
-        """
-        Строчное представление класса
-        """
-
-        return "id:{} {}-{}, {} г. ({})".format(self.id, self.title, self.author, self.year, self.status)
+    def __repr__(self):
+        return f"{self.__class__.__name__}({self.id}, {self.title}, {self.author}, {self.year}, {self.status})"
