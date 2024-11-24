@@ -55,10 +55,19 @@ def search_book():
     indicator = 1
     for book in books:
         if search_user in book["author"] or search_user in book["title"] or search_user in str(book["year"]):
-            print(f"{book["title"]} - {book["author"]}, {int(book["year"])} г. {book["status"]}")
+            print(Book(**book))
             indicator = 0
     if indicator:
         print("Книга не найдена!")
+
+def views_books():
+    """
+    Вывод списка всех книг
+    """
+    books = read_file()
+    for num, value in enumerate(books, 1):
+        print(num, Book(**value))
+
 
 
 
@@ -67,4 +76,4 @@ def search_book():
 
 
 if __name__ == "__main__":
-    delete_book()
+    views_books()
