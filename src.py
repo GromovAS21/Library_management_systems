@@ -38,16 +38,18 @@ def delete_book():
                     books.remove(book)
                     with open("db_book.json", "w", encoding="utf-8") as file:
                         json.dump(books, file, ensure_ascii=False)
-                        print(out_green_text(f"Книга с id:{book_id} удален."))
-                        break
+                    print(out_green_text(f"Книга с id:{book_id} удален."))
+                    break
             else:
                 print("Книги с таким id не найдено!")
             break
         else:
             print(out_red_text("Введен некорректный id!"))
 
-
 def search_book():
+    """
+    Поиск книги по автору, названию книги, году
+    """
     search_user = input("Поиск: ").strip()
     books = read_file()
     indicator = 1
@@ -65,4 +67,4 @@ def search_book():
 
 
 if __name__ == "__main__":
-    search_book()
+    delete_book()

@@ -27,5 +27,5 @@ def write_file(book:Book) -> None:
     }
     books.append(book)
     with open("db_book.json", "w", encoding="utf-8") as file:
-        json.dump(books, file, ensure_ascii=False)
+        json.dump(books, file, ensure_ascii=False, indent=5)
 
