@@ -15,9 +15,16 @@ def adding_book():
         year = input("Введите год выпуска книги: ")
         if year.isdigit():
             book = Book(title, author, int(year))
-            write_file(book)
-            print(out_green_text("Книга добавлена!"))
-            break
+            books = read_file()
+            books.append({
+                "id": book.id,
+                "title": book.title,
+                "author": book.author,
+                "year": book.year,
+                "status": book.status
+            })
+            write_file(books)
+            return out_green_text("Книга добавлена!")
         else:
             print(out_red_text("Введен некорректный год!"))
 
@@ -26,10 +33,9 @@ def delete_book():
         books = read_file()
 
         if not books:
-            print("Пока нет добавленных книг!\n")
-            break
+            return "Пока нет добавленных книг!\n"
 
-        book_id = input("Введите id книги которую хотите удалить: ")
+        book_id = input("Введите ID книги которую хотите удалить: ")
 
         if book_id.isdigit():
             for book in books:
@@ -37,35 +43,35 @@ def delete_book():
                     books.remove(book)
                     with open("db_book.json", "w", encoding="utf-8") as file:
                         json.dump(books, file, ensure_ascii=False)
-                    print(out_green_text(f"Книга с id:{book_id} удален."))
-                    break
+                    return out_green_text(f"Книга с id:{book_id} удалена.")
             else:
-                print("Книги с таким id не найдено!")
-            break
+                return "Книга c указанным ID не найдена!"
         else:
-            print(out_red_text("Введен некорректный id!"))
+            print(out_red_text("Введен некорректный ID!"))
 
 def search_book():
     """
     Поиск книги по автору, названию книги, году
     """
-    search_user = input("Поиск: ").strip()
     books = read_file()
-    indicator = 1
+    if not books:
+        return "Пока нет добавленных книг!"
+    search_user = input("Поиск: ").strip()
     for book in books:
         if search_user in book["author"] or search_user in book["title"] or search_user in str(book["year"]):
-            print(Book(**book))
-            indicator = 0
-    if indicator:
-        print("Книга не найдена!")
+            return f"id:{book["id"]} {book["title"]}-{book["author"]}, {book["year"]} г. ({book["status"]})"
+    return "Книга c указанным ID не найдена!"
 
 def views_books():
     """
     Вывод списка всех книг
     """
     books = read_file()
-    for num, value in enumerate(books, 1):
-        print(num, Book(**value))
+    if not books:
+        return "Список книг пуст."
+    else:
+        for num, value in enumerate(books, 1):
+            return num, f"id:{value["id"]} {value["title"]}-{value["author"]}, {value["year"]} г. ({value["status"]})"
 
 def change_status():
     """
@@ -73,24 +79,19 @@ def change_status():
     """
 
     books = read_file()
+    if not books:
+        return "Пока нет добавленных книг!"
     book_id = input("Введите id книги для изменения статуса: ")
     if book_id.isdigit():
-        indicator = 1
         for book in books:
             if int(book_id) == book["id"]:
                 if book["status"] == "в наличии":
                     book["status"] = "выдан"
                 else:
                     book["status"] = "в наличии"
-                print("Статус книги с id {} изменен!".format(book["id"]))
                 with open("db_book.json", "w", encoding="utf-8") as file:
                     json.dump(books, file, ensure_ascii=False, indent=5)
-                indicator = 0
-        if indicator:
-            print("Книга не найдена!")
+                return out_green_text("Статус книги с id {} изменен!".format(book["id"]))
+        return "Книга c указанным ID не найдена!"
     else:
-        print(out_red_text("Введен некорректный id!"))
-
-
-if __name__ == "__main__":
-    change_status()
+        print(out_red_text("Введен некорректный ID!"))
