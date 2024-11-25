@@ -2,20 +2,25 @@ from class_books import Book
 from file_saver import write_file, read_file
 from services import out_red_text, out_green_text
 
+exceptions_book_id =  out_red_text("Введен некорректный ID!")
+exceptions_book_found = "Книга c указанным ID не найдена!"
+
 def adding_book():
     """
-    Добавление книги
+    Добавление книги в файл JSON
     """
 
     title = input("Введите название книги: ")
     author = input("Введите автора книги: ")
+
     while True:
         year = input("Введите год выпуска книги: ")
+
         if year.isdigit():
             book = Book(title, author, int(year))
             books = read_file()
             books.append({
-                "id": book.id,
+                "book_id": book.book_id,
                 "title": book.title,
                 "author": book.author,
                 "year": book.year,
@@ -23,48 +28,61 @@ def adding_book():
             })
             write_file(books)
             return out_green_text("Книга добавлена!")
+
         else:
-            print(out_red_text("Введен некорректный год!"))
+            print(exceptions_book_id)
 
 def delete_book():
-    while True:
-        books = read_file()
-        if not books:
-            return "Пока нет добавленных книг!\n"
+    """
+    Удаление книги из файла JSON
+    """
 
-        book_id = input("Введите ID книги которую хотите удалить: ")
+    books = read_file()
+    if not books:
+        return "Пока нет добавленных книг!\n"
 
-        if book_id.isdigit():
-            for book in books:
-                if int(book["id"]) == int(book_id):
-                    books.remove(book)
-                    write_file(books)
-                    return out_green_text(f"Книга с id:{book_id} удалена.")
-            else:
-                return "Книга c указанным ID не найдена!"
+    book_id = input("Введите ID книги которую хотите удалить: ")
+
+    if book_id.isdigit():
+        for book in books:
+            if int(book["book_id"]) == int(book_id):
+                books.remove(book)
+                write_file(books)
+                return out_green_text(f"Книга с book_id:{book_id} удалена.")
+
         else:
-            print(out_red_text("Введен некорректный ID!"))
+            return exceptions_book_found
+
+    else:
+        return exceptions_book_id
 
 def search_book():
     """
     Поиск книги по автору, названию книги, году
     """
+
     books = read_file()
     if not books:
         return "Пока нет добавленных книг!"
+
     search_user = input("Поиск: ").strip()
+    indicator = True
     for book in books:
-        if search_user in book["author"] or search_user in book["title"] or search_user in str(book["year"]):
-            return Book(**book)
-    return "Книга c указанным ID не найдена!"
+        if any(map(lambda x: search_user in x, (book["author"], book["title"], str(book["year"])))):
+            print(Book(**book))
+            indicator = False
+    if indicator:
+        print("Книга с указанными параметрами не найдена!")
 
 def views_books():
     """
     Вывод списка всех книг
     """
+
     books = read_file()
     if not books:
         print("Список книг пуст.")
+
     else:
         for num, value in enumerate(books, 1):
             print (f"{num}) {Book(**value)}")
@@ -77,16 +95,16 @@ def change_status():
     books = read_file()
     if not books:
         return "Пока нет добавленных книг!"
-    book_id = input("Введите id книги для изменения статуса: ")
+
+    book_id = input("Введите ID книги для изменения статуса: ")
+
     if book_id.isdigit():
         for book in books:
-            if int(book_id) == book["id"]:
-                if book["status"] == "в наличии":
-                    book["status"] = "выдан"
-                else:
-                    book["status"] = "в наличии"
-                write_file(books)
-                return out_green_text("Статус книги с id {} изменен!".format(book["id"]))
-        return "Книга c указанным ID не найдена!"
+            if int(book_id) == book["book_id"]:
+                book["status"] = "выдан" if book["status"] == "в наличии" else "в наличии"
+            write_file(books)
+            return out_green_text("Статус книги с ID:{} изменен!".format(book["book_id"]))
+        return exceptions_book_found
+
     else:
-        print(out_red_text("Введен некорректный ID!"))
+        return exceptions_book_id

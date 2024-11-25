@@ -12,7 +12,7 @@ def main():
         elif input_user == "delete":
             print(delete_book())
         elif input_user == "search":
-            print(search_book())
+            search_book()
         elif input_user == "change":
             print(change_status())
         else:

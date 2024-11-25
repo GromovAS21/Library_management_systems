@@ -1,7 +1,5 @@
 import json
 
-from class_books import Book
-
 def read_file() -> list:
     """
     Прочтение файла json
