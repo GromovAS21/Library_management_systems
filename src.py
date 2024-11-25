@@ -59,12 +59,9 @@ def delete_book():
                 return out_green_text(
                     f"Книга с book_id:{book_id} удалена."
                 )
+        return book_not_found
 
-        else:
-            return book_not_found
-
-    else:
-        return book_id_fail
+    return book_id_fail
 
 
 def search_book():
@@ -125,5 +122,4 @@ def change_status():
                 )
         return book_not_found
 
-    else:
-        return book_id_fail
+    return book_id_fail
