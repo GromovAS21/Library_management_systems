@@ -2,7 +2,10 @@ class Book:
     """
     Класс книги
     """
+
     BOOK_ID = 0
+
+    __slots__ = ("title", "author", "year", "id", "status")
 
     def __init__(self, title:str, author:str, year:int, id=None, status="в наличии"):
         self.id = self.set_book_id() if id is None else id
