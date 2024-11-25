@@ -15,9 +15,13 @@ def main():
             search_book()
         elif input_user == "change":
             print(change_status())
+        elif input_user == "stop":
+            print("Программа завершена.")
+            break
         else:
             print(out_red_text("Неизвестная команда!"))
 
 
 if __name__ == "__main__":
     main()
+
