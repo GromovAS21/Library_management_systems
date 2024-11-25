@@ -7,7 +7,9 @@ class Book:
 
     __slots__ = ("title", "author", "year", "book_id", "status")
 
-    def __init__(self, title:str, author:str, year:int, book_id=None, status="в наличии"):
+    def __init__(
+        self, title: str, author: str, year: int, book_id=None, status="в наличии"
+    ):
         self.book_id = self.set_book_id() if book_id is None else book_id
         self.title = title
         self.author = author

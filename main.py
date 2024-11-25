@@ -1,5 +1,5 @@
 from services import out_red_text
-from src import views_books, adding_book, delete_book, search_book, change_status
+from src import adding_book, change_status, delete_book, search_book, views_books
 
 
 def main():
@@ -17,6 +17,7 @@ def main():
             print(change_status())
         else:
             print(out_red_text("Неизвестная команда!"))
+
 
 if __name__ == "__main__":
     main()
