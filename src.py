@@ -76,17 +76,18 @@ def search_book():
     if not books:
         print(books_null)
 
-    search_user = input("Поиск: ").strip()
-    indicator = True
-    for book in books:
-        if any(map(
-                lambda x: search_user in x,
-                (book["author"], book["title"], str(book["year"]))
-        )):
-            print(Book(**book))
-            indicator = False
-    if indicator:
-        print("Книга с указанными параметрами не найдена!")
+    else:
+        search_user = input("Поиск: ").strip()
+        indicator = True
+        for book in books:
+            if any(map(
+                    lambda x: search_user in x,
+                    (book["author"], book["title"], str(book["year"]))
+            )):
+                print(Book(**book))
+                indicator = False
+        if indicator:
+            print("Книга с указанными параметрами не найдена!")
 
 
 def views_books():
