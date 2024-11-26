@@ -37,7 +37,7 @@ def adding_book():
             )
 
         else:
-            print("Введен некорректный год!")
+            print(out_red_text("Введен некорректный год!"))
 
 
 def delete_book():
