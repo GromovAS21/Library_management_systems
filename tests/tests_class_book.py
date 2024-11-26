@@ -18,11 +18,11 @@ class TestBook(TestCase):
         Проверка инициализации экземпляра класса Book
         """
 
-        self.assertEqual(self.book_1.__book_id, 1)
-        self.assertEqual(self.book_1.title, "Книга_1")
-        self.assertEqual(self.book_1.author, "Автор_1")
-        self.assertEqual(self.book_1.year, 2000)
-        self.assertEqual(self.book_2.__book_id, 100)
+        self.assertEqual(self.book_1.get_id, 1)
+        self.assertEqual(self.book_1.get_title, "Книга_1")
+        self.assertEqual(self.book_1.get_author, "Автор_1")
+        self.assertEqual(self.book_1.get_year, 2000)
+        self.assertEqual(self.book_2.get_id, 100)
 
 
 if __name__ == "__main__":
