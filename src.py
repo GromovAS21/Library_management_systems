@@ -20,15 +20,15 @@ def adding_book():
         year = input("Введите год выпуска книги: ")
 
         if year.isdigit():
-            book = Book(title, author, int(year))
+            book = Book.create_book(title, author, int(year))
             books = read_file()
             books.append(
                 {
-                    "book_id": book.book_id,
-                    "title": book.title,
-                    "author": book.author,
-                    "year": book.year,
-                    "status": book.status,
+                    "book_id": book.get_id,
+                    "title": book.get_title,
+                    "author": book.get_author,
+                    "year": book.get_year,
+                    "status": book.get_status,
                 }
             )
             write_file(books)
@@ -57,7 +57,7 @@ def delete_book():
                 books.remove(book)
                 write_file(books)
                 return out_green_text(
-                    f"Книга с book_id:{book_id} удалена."
+                    f"Книга с ID:{book_id} удалена."
                 )
         return book_not_found
 
@@ -81,7 +81,7 @@ def search_book():
                     lambda x: search_user in x,
                     (book["author"], book["title"], str(book["year"]))
             )):
-                print(Book(**book))
+                print(Book.create_book(**book))
                 indicator = False
         if indicator:
             print("Книга с указанными параметрами не найдена!")
@@ -98,7 +98,7 @@ def views_books():
 
     else:
         for num, value in enumerate(books, 1):
-            print(f"{num}) {Book(**value)}")
+            print(f"{num}) {Book.create_book(**value)}")
 
 
 def change_status():
