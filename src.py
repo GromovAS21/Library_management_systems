@@ -8,7 +8,7 @@ book_not_found = "Книга c указанным ID не найдена!"
 books_null = "Пока нет добавленных книг!"
 
 
-def adding_book():
+def adding_book() -> str:
     """
     Добавление книги в файл JSON
     """
@@ -40,7 +40,7 @@ def adding_book():
             print(out_red_text("Введен некорректный год!"))
 
 
-def delete_book():
+def delete_book() -> str:
     """
     Удаление книги из файла JSON
     """
@@ -64,7 +64,7 @@ def delete_book():
     return book_id_fail
 
 
-def search_book():
+def search_book() -> None:
     """
     Поиск книги по автору, названию книги, году
     """
@@ -87,7 +87,7 @@ def search_book():
             print("Книга с указанными параметрами не найдена!")
 
 
-def views_books():
+def views_books() -> None:
     """
     Вывод списка всех книг
     """
@@ -101,7 +101,7 @@ def views_books():
             print(f"{num}) {Book.create_book(**value)}")
 
 
-def change_status():
+def change_status() -> str:
     """
     Замена статуса (в наличии, выдана)
     """
